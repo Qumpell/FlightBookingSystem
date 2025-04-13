@@ -37,7 +37,7 @@ public class PassengerServiceImpl implements PassengerService {
 
     @Override
     public void deletePassenger(Long id) {
-        if(!passengerRepository.existsById(id)) {
+        if (!passengerRepository.existsById(id)) {
             throw new PassengerNotFoundException(id);
         }
         passengerRepository.deleteById(id);

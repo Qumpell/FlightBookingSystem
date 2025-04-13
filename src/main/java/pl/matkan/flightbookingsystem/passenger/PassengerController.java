@@ -16,31 +16,31 @@ public class PassengerController {
     private final PassengerService passengerService;
 
     @GetMapping
-    public ResponseEntity<List<Passenger>> getAllPassengers(){
-        return new ResponseEntity<>(passengerService.getAllPassengers(),HttpStatus.OK);
+    public ResponseEntity<List<Passenger>> getAllPassengers() {
+        return new ResponseEntity<>(passengerService.getAllPassengers(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Passenger> getPassengerById(@PathVariable("id") Long id){
-        return new ResponseEntity<>(passengerService.getPassengerById(id),HttpStatus.OK);
+    public ResponseEntity<Passenger> getPassengerById(@PathVariable("id") Long id) {
+        return new ResponseEntity<>(passengerService.getPassengerById(id), HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Passenger> updatePassenger(
             @PathVariable("id") Long id,
             @Valid @RequestBody PassengerRequest passengerRequest
-    ){
-        return new ResponseEntity<>(passengerService.updatePassenger(id, passengerRequest),HttpStatus.OK);
+    ) {
+        return new ResponseEntity<>(passengerService.updatePassenger(id, passengerRequest), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletePassenger(@PathVariable("id") Long id){
+    public ResponseEntity<Void> deletePassenger(@PathVariable("id") Long id) {
         passengerService.deletePassenger(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @PostMapping
-    public ResponseEntity<Passenger> createPassenger(@Valid @RequestBody PassengerRequest passengerRequest){
-        return new ResponseEntity<>(passengerService.addPassenger(passengerRequest),HttpStatus.CREATED);
+    public ResponseEntity<Passenger> createPassenger(@Valid @RequestBody PassengerRequest passengerRequest) {
+        return new ResponseEntity<>(passengerService.addPassenger(passengerRequest), HttpStatus.CREATED);
     }
 }
