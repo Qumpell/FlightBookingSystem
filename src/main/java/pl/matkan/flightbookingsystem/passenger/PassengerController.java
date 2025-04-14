@@ -21,20 +21,20 @@ public class PassengerController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Passenger> getPassengerById(@PathVariable("id") Long id) {
+    public ResponseEntity<Passenger> getPassengerById(@PathVariable Long id) {
         return new ResponseEntity<>(passengerService.getPassengerById(id), HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Passenger> updatePassenger(
-            @PathVariable("id") Long id,
+            @PathVariable Long id,
             @Valid @RequestBody PassengerRequest passengerRequest
     ) {
         return new ResponseEntity<>(passengerService.updatePassenger(id, passengerRequest), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletePassenger(@PathVariable("id") Long id) {
+    public ResponseEntity<Void> deletePassenger(@PathVariable Long id) {
         passengerService.deletePassenger(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
