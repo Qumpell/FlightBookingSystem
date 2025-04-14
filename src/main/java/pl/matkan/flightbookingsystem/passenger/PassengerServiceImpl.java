@@ -2,7 +2,9 @@ package pl.matkan.flightbookingsystem.passenger;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import pl.matkan.flightbookingsystem.exception.BadRequestException;
 import pl.matkan.flightbookingsystem.exception.PassengerNotFoundException;
+import pl.matkan.flightbookingsystem.reservation.ReservationRepository;
 
 import java.util.List;
 
@@ -11,6 +13,7 @@ import java.util.List;
 public class PassengerServiceImpl implements PassengerService {
 
     private final PassengerRepository passengerRepository;
+    private final ReservationRepository reservationRepository;
 
     @Override
     public List<Passenger> getAllPassengers() {
@@ -38,6 +41,12 @@ public class PassengerServiceImpl implements PassengerService {
     @Override
     public void deletePassenger(Long id) {
         Passenger passengerToDelete = getPassengerById(id);
+
+        boolean reservationExists = reservationRepository.existsByPassenger(passengerToDelete);
+        if (reservationExists) {
+            throw new BadRequestException("Cannot delete passenger with existing reservations.");
+        }
+
         passengerRepository.delete(passengerToDelete);
     }
 

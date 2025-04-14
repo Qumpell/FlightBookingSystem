@@ -2,15 +2,18 @@ package pl.matkan.flightbookingsystem.flight;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import pl.matkan.flightbookingsystem.exception.BadRequestException;
 import pl.matkan.flightbookingsystem.exception.FlightNotFoundException;
+import pl.matkan.flightbookingsystem.reservation.ReservationRepository;
 
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class FlightServiceImpl  implements FlightService {
+public class FlightServiceImpl implements FlightService {
 
     private final FlightRepository flightRepository;
+    private final ReservationRepository reservationRepository;
 
     @Override
     public List<Flight> getAllFlights() {
@@ -40,6 +43,12 @@ public class FlightServiceImpl  implements FlightService {
     @Override
     public void deleteFlight(Long id) {
         Flight flightToDelete = getFlightById(id);
+
+        boolean reservationExists = reservationRepository.existsByFlight(flightToDelete);
+        if (reservationExists) {
+            throw new BadRequestException("Cannot delete flight with existing reservations.");
+        }
+
         flightRepository.delete(flightToDelete);
     }
 

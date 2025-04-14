@@ -1,8 +1,5 @@
 package pl.matkan.flightbookingsystem.flight;
 
-import pl.matkan.flightbookingsystem.passenger.Passenger;
-import pl.matkan.flightbookingsystem.passenger.PassengerRequest;
-
 import java.util.List;
 
 public interface FlightService {

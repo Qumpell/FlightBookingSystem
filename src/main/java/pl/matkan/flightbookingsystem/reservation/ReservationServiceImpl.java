@@ -46,7 +46,7 @@ public class ReservationServiceImpl implements ReservationService {
         boolean isSeatTaken = reservationRepository.existsByFlightAndSeatNumber(flight, reservationRequest.seatNumber());
         Reservation reservationToUpdate = getReservationById(id);
 
-        if(isSeatTaken && !reservationToUpdate.getSeatNumber().equals(reservationRequest.seatNumber())) {
+        if (isSeatTaken && !reservationToUpdate.getSeatNumber().equals(reservationRequest.seatNumber())) {
             throw new BadRequestException("Provided seat is already taken for this flight");
         }
 
@@ -74,8 +74,7 @@ public class ReservationServiceImpl implements ReservationService {
                 .orElseThrow(() -> new PassengerNotFoundException(reservationRequest.passengerId()));
 
         boolean isSeatTaken = reservationRepository.existsByFlightAndSeatNumber(flight, reservationRequest.seatNumber());
-        if(isSeatTaken)
-        {
+        if (isSeatTaken) {
             throw new BadRequestException("Provided seat is already taken for this flight");
         }
 
