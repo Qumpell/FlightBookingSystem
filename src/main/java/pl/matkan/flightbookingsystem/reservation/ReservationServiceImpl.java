@@ -1,16 +1,15 @@
 package pl.matkan.flightbookingsystem.reservation;
 
+import jakarta.mail.MessagingException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import pl.matkan.flightbookingsystem.exception.BadRequestException;
-import pl.matkan.flightbookingsystem.exception.FlightNotFoundException;
-import pl.matkan.flightbookingsystem.exception.PassengerNotFoundException;
-import pl.matkan.flightbookingsystem.exception.ReservationNotFoundException;
+import pl.matkan.flightbookingsystem.exception.*;
 import pl.matkan.flightbookingsystem.flight.Flight;
 import pl.matkan.flightbookingsystem.flight.FlightRepository;
 import pl.matkan.flightbookingsystem.passenger.Passenger;
 import pl.matkan.flightbookingsystem.passenger.PassengerRepository;
+import pl.matkan.flightbookingsystem.util.mail.EmailService;
 
 import java.util.List;
 import java.util.UUID;
@@ -22,6 +21,7 @@ public class ReservationServiceImpl implements ReservationService {
     private final ReservationRepository reservationRepository;
     private final FlightRepository flightRepository;
     private final PassengerRepository passengerRepository;
+    private final EmailService emailService;
 
     @Override
     public List<ReservationResponse> getAllReservations() {
@@ -93,7 +93,17 @@ public class ReservationServiceImpl implements ReservationService {
         reservation.setDepartureDone(reservationRequest.departureDone());
 
         Reservation created =  reservationRepository.save(reservation);
-        return ReservationResponseMapper.INSTANCE.toDto(created);
+
+        ReservationResponse response = ReservationResponseMapper.INSTANCE.toDto(created);
+
+        try {
+            emailService.sendReservationEmail(response);
+        } catch (MessagingException e) {
+            throw new MailException("Failed to send reservation email");
+        }
+
+
+        return response;
     }
 
 }

@@ -1,5 +1,6 @@
 package pl.matkan.flightbookingsystem.reservation;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 public record ReservationResponse(
@@ -9,6 +10,7 @@ public record ReservationResponse(
         String passengerName,
         String email,
         String phone,
+        LocalDateTime reservationDate,
         boolean departureDone
 ) {
 }

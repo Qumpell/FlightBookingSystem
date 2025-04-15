@@ -19,6 +19,7 @@ public interface ReservationResponseMapper {
             @Mapping(expression = "java(reservation.getPassenger().getFirstname() + \" \" + reservation.getPassenger().getLastname())", target = "passengerName"),
             @Mapping(source = "passenger.email", target = "email"),
             @Mapping(source = "passenger.phone", target = "phone"),
+            @Mapping(source = "flight.departureDateTime", target = "reservationDate"),
             @Mapping(source = "departureDone", target = "departureDone"),
     })
     ReservationResponse toDto(Reservation reservation);
