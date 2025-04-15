@@ -5,13 +5,15 @@ import java.util.UUID;
 
 public interface ReservationService {
 
-    List<Reservation> getAllReservations();
+    List<ReservationResponse> getAllReservations();
 
     Reservation getReservationById(UUID id);
 
-    Reservation updateReservation(UUID id, ReservationRequest reservationRequest);
+    ReservationResponse updateReservation(UUID id, ReservationRequest reservationRequest);
 
     void deleteReservation(UUID id);
 
-    Reservation addReservation(ReservationRequest reservationRequest);
+    ReservationResponse addReservation(ReservationRequest reservationRequest);
+
+    ReservationResponse getReservationResponseById(UUID id);
 }

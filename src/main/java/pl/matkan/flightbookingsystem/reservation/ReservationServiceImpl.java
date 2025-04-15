@@ -24,19 +24,26 @@ public class ReservationServiceImpl implements ReservationService {
     private final PassengerRepository passengerRepository;
 
     @Override
-    public List<Reservation> getAllReservations() {
-        return reservationRepository.findAll();
+    public List<ReservationResponse> getAllReservations() {
+        return ReservationResponseMapper.INSTANCE.toDtoList(reservationRepository.findAll());
     }
 
     @Override
     public Reservation getReservationById(UUID id) {
         return reservationRepository.findById(id)
                 .orElseThrow(() -> new ReservationNotFoundException(id));
+
+    }
+
+    @Override
+    public ReservationResponse getReservationResponseById(UUID id) {
+        Reservation reservation = getReservationById(id);
+        return ReservationResponseMapper.INSTANCE.toDto(reservation);
     }
 
     @Override
     @Transactional
-    public Reservation updateReservation(UUID id, ReservationRequest reservationRequest) {
+    public ReservationResponse updateReservation(UUID id, ReservationRequest reservationRequest) {
         Flight flight = flightRepository.findById(reservationRequest.flightId())
                 .orElseThrow(() -> new FlightNotFoundException(reservationRequest.flightId()));
 
@@ -55,7 +62,8 @@ public class ReservationServiceImpl implements ReservationService {
         reservationToUpdate.setPassenger(passenger);
         reservationToUpdate.setDepartureDone(reservationRequest.departureDone());
 
-        return reservationRepository.save(reservationToUpdate);
+        Reservation updated = reservationRepository.save(reservationToUpdate);
+        return ReservationResponseMapper.INSTANCE.toDto(updated);
     }
 
     @Override
@@ -66,7 +74,7 @@ public class ReservationServiceImpl implements ReservationService {
 
     @Override
     @Transactional
-    public Reservation addReservation(ReservationRequest reservationRequest) {
+    public ReservationResponse addReservation(ReservationRequest reservationRequest) {
         Flight flight = flightRepository.findById(reservationRequest.flightId())
                 .orElseThrow(() -> new FlightNotFoundException(reservationRequest.flightId()));
 
@@ -84,7 +92,8 @@ public class ReservationServiceImpl implements ReservationService {
         reservation.setSeatNumber(reservationRequest.seatNumber());
         reservation.setDepartureDone(reservationRequest.departureDone());
 
-        return reservationRepository.save(reservation);
+        Reservation created =  reservationRepository.save(reservation);
+        return ReservationResponseMapper.INSTANCE.toDto(created);
     }
 
 }
