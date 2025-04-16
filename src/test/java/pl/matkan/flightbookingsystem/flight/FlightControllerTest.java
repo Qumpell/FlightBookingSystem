@@ -115,7 +115,7 @@ class FlightControllerTest {
     }
 
     @Test
-    void shouldThrowFlightNotFoundExceptionWhenFlightDoesNotExist_getById() {
+    void shouldThrowFlightNotFoundExceptionWhenGettingNonExistentFlight() {
         // Given
         Long flightId = 99L;
         when(flightService.getFlightById(flightId))
@@ -131,7 +131,7 @@ class FlightControllerTest {
     }
 
     @Test
-    void shouldThrowFlightNotFoundExceptionWhenFlightDoesNotExist_update() {
+    void shouldThrowFlightNotFoundExceptionWhenUpdatingNonExistentFlight() {
         // Given
         Long flightId = 99L;
         when(flightService.updateFlight(flightId, flightRequest))
@@ -147,7 +147,7 @@ class FlightControllerTest {
     }
 
     @Test
-    void shouldThrowFlightNotFoundExceptionWhenFlightDoesNotExist_delete() {
+    void shouldThrowFlightNotFoundExceptionWhenDeletingNonExistentFlight() {
         // Given
         Long flightId = 99L;
         doThrow(new FlightNotFoundException(flightId)).when(flightService).deleteFlight(flightId);
@@ -162,7 +162,7 @@ class FlightControllerTest {
     }
 
     @Test
-    void shouldThrowBadRequestExceptionWhenFlightHasReservationsOnDelete() {
+    void shouldThrowBadRequestExceptionWhenDeletingFlightWithReservations() {
         // Given
         Long flightId = 1L;
         doThrow(new BadRequestException("Cannot delete flight with existing reservations."))

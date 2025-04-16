@@ -114,7 +114,7 @@ class PassengerControllerTest {
     }
 
     @Test
-    void shouldThrowNotFoundExceptionWhenPassengerDoesNotExist_getById() {
+    void shouldThrowNotFoundExceptionWhenGettingNonExistentPassenger() {
         // Given
         Long passengerId = 99L;
         when(service.getPassengerById(passengerId))
@@ -131,7 +131,7 @@ class PassengerControllerTest {
     }
 
     @Test
-    void shouldThrowNotFoundExceptionWhenPassengerDoesNotExist_update() {
+    void shouldThrowNotFoundExceptionWhenUpdatingNonExistentPassenger() {
         // Given
         Long passengerId = 99L;
         when(service.updatePassenger(passengerId, request))
@@ -148,7 +148,7 @@ class PassengerControllerTest {
     }
 
     @Test
-    void shouldThrowNotFoundExceptionWhenPassengerDoesNotExist_delete() {
+    void shouldThrowNotFoundExceptionWhenDeletingNonExistentPassenger() {
         // Given
         Long passengerId = 99L;
         doThrow(new PassengerNotFoundException(passengerId))
