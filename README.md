@@ -42,8 +42,7 @@ APP_MAIL_PASSWORD=your_password
 
 
     git clone https://github.com/Qumpell/FlightBookingSystem.git
-    cd flight-booking-system
-
+    cd FlightBookingSystem
 
 ### Run with Docker
 
@@ -57,14 +56,13 @@ APP_MAIL_PASSWORD=your_password
 ### Run locally (without Docker)
 
 ```bash 
-    mvn spring-boot:run
+    mvn clean spring-boot:run
 ```
 
 ### Access API:
-
-    - Swagger UI: [http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html)
-    - App runs on: `http://localhost:8080`
-
+ 
+- Swagger UI: [http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html)
+- App runs on: `http://localhost:8080`
 
 ## Testing
 Basic unit tests are provided for core service functionalities.  
