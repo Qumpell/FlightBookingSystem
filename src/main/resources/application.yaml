@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: FlightBookingSystem
+  datasource:
+    url: jdbc:h2:mem:mydb
+    username: sa
+    password: password
+    driver-class-name: org.h2.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    defer-datasource-initialization: true
+  h2:
+    console:
+      enabled: true
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${APP_MAIL_USERNAME}
+    password: ${APP_MAIL_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+    test-connection: true
