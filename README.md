@@ -32,13 +32,13 @@ Functionality for handling **Flights**, **Passengers**, and **Reservations**, of
 
 ## Getting Started
 
-1. **Create `.env` file** in the root directory:
+#### 1. **Create `.env` file** in the root directory:
 
 ```env
 APP_MAIL_USERNAME=your_email@gmail.com
 APP_MAIL_PASSWORD=your_password
 ```
-### 1. Clone the application
+#### 2. Clone the application
 
 
     git clone https://github.com/Qumpell/FlightBookingSystem.git
