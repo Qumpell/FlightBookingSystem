@@ -10,7 +10,7 @@ public class EmailBuilder {
 
     public String buildReservationEmail(ReservationResponse reservation) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d MMMM yyyy, HH:mm");
-        String formattedDate = reservation.reservationDate().format(formatter);
+        String formattedDate = reservation.departureDate().format(formatter);
 
         return "<h2>Reservation Confirmed</h2>"
                 + "<p>Dear " + reservation.passengerName() + ",</p>"

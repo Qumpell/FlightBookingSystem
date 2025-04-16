@@ -10,7 +10,7 @@ public record ReservationResponse(
         String passengerName,
         String email,
         String phone,
-        LocalDateTime reservationDate,
+        LocalDateTime departureDate,
         boolean departureDone
 ) {
 }
