@@ -1,0 +1,12 @@
+name: flight_booking_system
+services:
+  api:
+    container_name: api
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      APP_MAIL_USERNAME: ${APP_MAIL_USERNAME}
+      APP_MAIL_PASSWORD: ${APP_MAIL_PASSWORD}
+    ports:
+      - "8080:8080"
